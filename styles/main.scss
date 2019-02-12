@@ -1,0 +1,87 @@
+*{
+    padding:0px;
+    margin:0px;
+    box-sizing: border-box;
+}
+
+body, html{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    flex-direction: column;
+    border:1px solid red;
+    height:100%;
+    width:100%;
+}
+
+.game{
+    margin-top:20px;
+    border:1px solid black;
+
+    .row{
+        display: flex;
+        flex-direction:row;
+        justify-content: center;
+
+        .box{
+            height:100px;
+            width:100px;
+            border:1px solid black;
+            margin:10px;
+            transition: all .2s;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }   
+    }   
+}
+
+.box-1{
+    background-color:green;
+}
+
+.box-2{
+    background-color:yellow;
+
+}
+
+.box-3{
+    background-color:red;
+
+}
+
+.box-4{
+    background-color:blue;
+
+}
+
+.glow{
+    box-shadow: 0 0 13px black;
+    transform: scale(1.1);
+}
+
+.start-game{
+    margin-top:10px;
+    border:1px solid black;
+    padding:5px 10px;
+    border-radius:10px;
+    background-color: #f57a7a;
+
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.turn{
+    margin-top:10px;
+
+    .computers-turn{
+        display:none;
+    }
+
+    .your-turn{
+        display:none;
+    }
+}
+
