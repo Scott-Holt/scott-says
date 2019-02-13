@@ -1,3 +1,4 @@
+//Variables*************************************************************************
 const game = document.querySelector('.game');
 const box = document.querySelectorAll('.box');
 const startButton = document.querySelector('.start-game');
@@ -10,80 +11,103 @@ const box2 = document.querySelector('.box-2');
 const box3 = document.querySelector('.box-3');
 const box4 = document.querySelector('.box-4');
 const boxArray = [box1,box2,box3,box4];
-const computerColorChoice = Math.floor(Math.random() * 4 );
+let computerColorChoice = Math.floor(Math.random() * 4);
 const computerChoiceList = [];
 
-
-// ***********Chooses random color and adds classList 'glow' then removes it when transition animation is over*******
-// *******************************************************************************************************************
-// *******************************************************************************************************************
-
-//mabe call this start game function cuz it only runs at beggingin??
+//Functions*********************************************************************
 function startGame(){
-    boxGlow();
-    computerChoiceList.push(boxArray[computerColorChoice]);
     computersTurnText.style.display = 'block';
-    console.log(computerChoiceList);
+    setTimeout(function(){
+        boxGlow();//*****THIS IS THE FIRST TIME BOXGLOW IS EVER CALLED AND IT STORES THE NUMBER IT CREATES INTO THE VARIABLE CALLED COMPUTERCOLORCHOICE */
+        addToComputerChoiceList();
+        console.log(computerChoiceList);
+        }, 1500)
+    setTimeout(function(){
+        computersTurnText.style.display = 'none';
+        yourTurnText.style.display = 'block';    
+    },2000)
 }
 
-//maybe call THIS ONE start game function
+//[green, blue, gree, red, blue]
 function computerTurn(){
-    //light up array[0], then choose new random color.
-    // WAIT A COUPLE SECONDS THEN RUN THE FOLLOWING CODE
-    
-   setTimeout(function(){
-       console.log('shit');
-   }, 5000);
+    setTimeout(()=> {
+        for(i = 0; i < computerChoiceList.length; i++){
+            computerChoiceList[i].classList.add('glow');
+        }
+    }, 1500)
 
-    // computerChoiceList[0].classList.add('glow');
-    // boxGlow();
-    // computerChoiceList.push(boxArray[computerChoiceList]);
-    // console.log(computerChoiceList);
-
+    setTimeout(() => {
+        boxGlow();
+        addToComputerChoiceList();
+        console.log(computerChoiceList);
+    }, 1800)
 }
 
 function userTurn(e){
-    boxGlow();
+    //DO I NEED TO CREATE A USER ARRAY SO I CAN COMPARE THE TWO ARRAYS?
+    e.target.classList.add('glow');
     if (e.target === computerChoiceList[0]){
         console.log('good job..now computers turn');
-        computerTurn();
+        setTimeout(()=> {
+            yourTurnText.style.display = 'none';
+            computersTurnText.style.display = 'block';
+            computerTurn()
+        }, 1500);
     } else {
         console.log('you lose');
     }
 }
 
-//maybe this needs to be renamed or if not then put anything that doesn't have to do with remove glowclasslist into a different function
-function removeGlowClassList() {
-    boxArray[computerColorChoice].classList.remove('glow');
-    computersTurnText.style.display = 'none';
-    yourTurnText.style.display = 'block';
 
-    //and then choose next color and so on..
+
+
+
+//Helper Functions*****************************************************************************
+
+function createRandomNumber(){ 
+    return computerColorChoice;
 }
 
 //this function picks a radom color and 'lights' it up
 function boxGlow(){
     boxArray[computerColorChoice].classList.add('glow');
 }
+//maybe this needs to be renamed or if not then put anything that doesn't have to do with remove glowclasslist into a different function
+function removeGlow() {
+    boxArray[computerColorChoice].classList.remove('glow');
+}
+
+//pushes the computers color choice to the computer array list
+function addToComputerChoiceList(){
+    computerChoiceList.push(boxArray[computerColorChoice]);
+}
 
 
-box.forEach(box => box.addEventListener('transitionend', removeGlowClassList ));
+
+
+
+
+//Event Listeners*****************************************************************************************
+//calls removeGlow() when "box glow" animation is over
+box.forEach(box => box.addEventListener('transitionend', removeGlow));
 box.forEach(box => box.addEventListener('click', userTurn));
-
-// *******************************************************************************************************************
-// *******************************************************************************************************************
-// *******************************************************************************************************************
-
-
 startButton.addEventListener('click', startGame);
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+//THE PROBLEM IS BOXGLOW() FUNCTION DOESN'T CREATE A NEW NUMBER EVERYTIME. IT CREATES ONE NUMBER FIRST TIME ITS EVER CALLED AND STORES THAT NUMBER IN THE VARIABLE COMPUTERCOLORCHOICE.
 //MAYBE I NEED TO MAKE A SCORE COUNTER AND SOMETHING THAT LOGS SCORE. SO TECHNICALLY GAME NEVER ENDS. YOU JUST TRY TO BEAT HIGH SCORES.
-
-
 
 
 
@@ -107,3 +131,4 @@ startButton.addEventListener('click', startGame);
 //     })
 //     console.log(boxArray);
 // })
+
