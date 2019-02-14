@@ -11,7 +11,7 @@ const box2 = document.querySelector('.box-2');
 const box3 = document.querySelector('.box-3');
 const box4 = document.querySelector('.box-4');
 const boxArray = [box1,box2,box3,box4];
-let computerColorChoice = Math.floor(Math.random() * 4);
+// let computerColorChoice = Math.floor(Math.random() * 4);
 const computerChoiceList = [];
 
 //Functions*********************************************************************
@@ -64,12 +64,9 @@ function userTurn(e){
 
 //Helper Functions*****************************************************************************
 
-function createRandomNumber(){ 
-    return computerColorChoice;
-}
-
 //this function picks a radom color and 'lights' it up
 function boxGlow(){
+    computerColorChoice = Math.floor(Math.random() * 4);
     boxArray[computerColorChoice].classList.add('glow');
 }
 //maybe this needs to be renamed or if not then put anything that doesn't have to do with remove glowclasslist into a different function
