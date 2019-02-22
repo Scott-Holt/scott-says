@@ -28,7 +28,7 @@ body, html{
             width:100px;
             border:1px solid black;
             margin:10px;
-            transition: all .2s;
+            transition:ease-in-out .2s;
 
             &:hover{
                 cursor: pointer;
@@ -56,9 +56,9 @@ body, html{
 
 }
 
-.glow{
+.glow{    
     box-shadow: 0 0 13px black;
-    transform: scale(1.1);
+    transform: scale(1.01);
 }
 
 .start-game{
