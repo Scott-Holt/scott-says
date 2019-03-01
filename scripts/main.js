@@ -3,6 +3,7 @@ const box = document.querySelectorAll('.box');
 const startButton = document.querySelector('.start-game');
 const computersTurnText = document.querySelector('.computers-turn');
 const yourTurnText = document.querySelector('.your-turn');
+const gameOverText = document.querySelector('.game-over');
 const green = document.querySelector('.green');
 const yellow = document.querySelector('.yellow');
 const red = document.querySelector('.red');
@@ -11,21 +12,9 @@ const boxArray = [green,yellow,red,blue];
 let computerColorChoice;
 let computerArray = []; 
 let userArray = [];
+gameOverText.style.display = 'none';
 
 //Main Functions*********************************************************************
-
-//STEPS TO GAME
-//1) USER CLICKS START BUTTON/ Event listner fires off and runs computerTurn()
-
-//2) computerTurn function runs. If theres nothing in the array aka computerArray.length = 0, then run computer steps..
-//which is choose random color, light up, light down, and add to computer array.
-// if its computers second turn aka computerArray doesnt equal 0, then run loopThroughSequence function.
-//this function runs through the array and lights up / lights down each array item, then
-// runs the computer steps (choosing a random color light up light down and add to computerArray)
-
-//3) every time a box is clicked it runs the user turn function. Very simple. It lights up/lights down and adds to user Array
-//if the length of the user array is the same as the computer array, then run the compureArrays function
-//which 
 
 
 function computerTurn(){
@@ -37,22 +26,21 @@ function computerTurn(){
             loopThroughSequence(computerArray);
         }
     }, 1500)
-}//something interesting happend here
-//where the computer chose the random color before it finished its sequence
-//do i need to remove the setTimeout that follows the loopThroughSequence? Why is that there?
-//i think if i remove that it will choose the last color at the same time that it
-//loops through its last color.
-//so maybe say..if computerArray.length is 
+}
 
-//userArray[green,]
+
 function userTurn(e){
     e.target.classList.add('glow');
     removeGlow(e.target);
     userArray.push(e.target);
 
+    //i need some kind of code here
+    //that says break code if
+    //at any point the user is wrong
     if(userArray.length === computerArray.length){
         console.log(userArray);
-        compareArrays(userArray, computerArray);
+        // compareArrays(userArray, computerArray);
+        compareTwoArrays(userArray, computerArray);
     }
 
 }
@@ -82,14 +70,15 @@ function addTocomputerArray() {
 function switchTurnDisplay(){
     if(computersTurnText.style.display === 'block'){
         computersTurnText.style.display = 'none';
-        yourTurnText.style.display ='block';  
+        yourTurnText.style.display ='block'; 
+ 
     } else {
         computersTurnText.style.display = 'block';
-        yourTurnText.style.display ='none'; 
+        yourTurnText.style.display ='none';
     }
 }
 
-//reusable function that gets called a lot
+//reusable function. Goes through all computer automated steps
 function allComputerSteps(){
     boxGlow();
     addTocomputerArray();
@@ -115,23 +104,60 @@ function loopThroughSequence(arr) {
     iterator(0);
 };
 
-function compareArrays(arr1, arr2){
-    arr1.forEach(e1 => arr2.forEach(e2 => {
-        if(e1 === e2){
-            console.log('good');
+
+function compareTwoArrays(arr1, arr2){
+
+    for(i = 0; i < arr1.length; i++){
+        if(arr1[i] === arr2[i]){
+            console.log('cool');
+        }else{
+            console.log('Game Over');
+            yourTurnText.style.display = 'none';
+            gameOverText.style.display = 'block';
+            resetGame();
         }
-    }));//this is the end of the forEach block
+    }
     userArray = [];
-    //do i need an if statement here saying only
-    //run the following code if e1 === e2?
     switchTurnDisplay();
-    setTimeout(()=>{
-        computerTurn();
-    }, 800)
-}//this is the end of the function
+    computerTurn();
+
+}
+
+//first of all..this is super hacky
+//second of all..it only says game over after your turn is done.
+function resetGame(){
+ break;
+}
 
 
 //Event Listeners*****************************************************************************************
 box.forEach(box => box.addEventListener('click', userTurn));
 startButton.addEventListener('click', computerTurn);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function compareArrays(arr1, arr2){
+//     arr1.forEach(e1 => arr2.forEach(e2 => {
+//         if(e1 === e2){
+//             console.log('good');
+//         } else {
+//             console.log('bad');
+//         }
+//     }));//this is the end of the forEach block
+//     userArray = [];
+//     switchTurnDisplay();
+//     setTimeout(()=>{
+//         computerTurn();
+//     }, 800)
+// }//this is the end of the function
