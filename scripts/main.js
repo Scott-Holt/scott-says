@@ -12,7 +12,21 @@ let computerColorChoice;
 let computerArray = []; 
 let userArray = [];
 
-//Functions*********************************************************************
+//Main Functions*********************************************************************
+
+//STEPS TO GAME
+//1) USER CLICKS START BUTTON/ Event listner fires off and runs computerTurn()
+
+//2) computerTurn function runs. If theres nothing in the array aka computerArray.length = 0, then run computer steps..
+//which is choose random color, light up, light down, and add to computer array.
+// if its computers second turn aka computerArray doesnt equal 0, then run loopThroughSequence function.
+//this function runs through the array and lights up / lights down each array item, then
+// runs the computer steps (choosing a random color light up light down and add to computerArray)
+
+//3) every time a box is clicked it runs the user turn function. Very simple. It lights up/lights down and adds to user Array
+//if the length of the user array is the same as the computer array, then run the compureArrays function
+//which 
+
 
 function computerTurn(){
     computersTurnText.style.display = 'block';
@@ -21,19 +35,26 @@ function computerTurn(){
              allComputerSteps();
         } else {
             loopThroughSequence(computerArray);
-            setTimeout(()=>{
-                allComputerSteps();
-            },800)
         }
     }, 1500)
-}
+}//something interesting happend here
+//where the computer chose the random color before it finished its sequence
+//do i need to remove the setTimeout that follows the loopThroughSequence? Why is that there?
+//i think if i remove that it will choose the last color at the same time that it
+//loops through its last color.
+//so maybe say..if computerArray.length is 
 
-
+//userArray[green,]
 function userTurn(e){
     e.target.classList.add('glow');
     removeGlow(e.target);
     userArray.push(e.target);
-    compareArrays(userArray, computerArray);
+
+    if(userArray.length === computerArray.length){
+        console.log(userArray);
+        compareArrays(userArray, computerArray);
+    }
+
 }
     
 
@@ -81,7 +102,7 @@ function allComputerSteps(){
 function loopThroughSequence(arr) {
     function iterator(index) {
         if (index >= arr.length) {
-            return;
+            allComputerSteps();
         } else {
             arr[index].classList.add('glow');
             removeGlow(arr[index]);
@@ -97,18 +118,17 @@ function loopThroughSequence(arr) {
 function compareArrays(arr1, arr2){
     arr1.forEach(e1 => arr2.forEach(e2 => {
         if(e1 === e2){
-          console.log('good job');
-          userArray = [];
-          switchTurnDisplay();
-          setTimeout(()=>{
-              computerTurn();
-          })
- 
-        } else {
-            
+            console.log('good');
         }
-    }))
-}
+    }));//this is the end of the forEach block
+    userArray = [];
+    //do i need an if statement here saying only
+    //run the following code if e1 === e2?
+    switchTurnDisplay();
+    setTimeout(()=>{
+        computerTurn();
+    }, 800)
+}//this is the end of the function
 
 
 //Event Listeners*****************************************************************************************
