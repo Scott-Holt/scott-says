@@ -13,34 +13,54 @@ let computerColorChoice;
 let computerArray = []; 
 let userArray = [];
 gameOverText.style.display = 'none';
+let enabled;
 
 //Main Functions*********************************************************************
 
+//THINGS I HAVE TO DO STILL
+//2) DISABLE USER TURN DURING COMPUTER TURN
+//3) PROPERLY END GAME..NOT THE HACKY WAY
+//4) ADD HIGH SCORE COUNTRER
+//5) STYLE BETTER
+//6) ADD SOUNDS
+//7) Refactor Code
+
+
+
 
 function computerTurn(){
+    //disable userTurn(); //user can't activate function with click
+    startButton.style.display = 'none';
+    gameOverText.style.display = 'none';
     computersTurnText.style.display = 'block';
+    console.log(computerArray);
     setTimeout(()=> {
+        enabled = true;
         if(computerArray.length === 0){
              allComputerSteps();
         } else {
             loopThroughSequence(computerArray);
         }
     }, 1500)
+    enabled = false;
 }
 
 
 function userTurn(e){
-    e.target.classList.add('glow');
-    removeGlow(e.target);
-    userArray.push(e.target);
-
-    //i need some kind of code here
-    //that says break code if
-    //at any point the user is wrong
-    if(userArray.length === computerArray.length){
+    if (enabled === true){
+        e.preventDefault();
+    } else {
+        e.target.classList.add('glow');
+        removeGlow(e.target);
+        userArray.push(e.target);
         console.log(userArray);
-        // compareArrays(userArray, computerArray);
         compareTwoArrays(userArray, computerArray);
+
+        if(userArray.length === computerArray.length){
+            userArray = [];
+            switchTurnDisplay();
+            computerTurn();
+        }
     }
 
 }
@@ -114,18 +134,19 @@ function compareTwoArrays(arr1, arr2){
             console.log('Game Over');
             yourTurnText.style.display = 'none';
             gameOverText.style.display = 'block';
-            resetGame();
+            startButton.style.display = 'block';
+            computerArray = [];
+            userArray = [];
+            startButton.innerHTML = '';
+            startButton.innerHTML = 'Try Again?';
+            stopGame();
         }
     }
-    userArray = [];
-    switchTurnDisplay();
-    computerTurn();
-
 }
 
 //first of all..this is super hacky
 //second of all..it only says game over after your turn is done.
-function resetGame(){
+function stopGame(){
  break;
 }
 
@@ -161,3 +182,18 @@ startButton.addEventListener('click', computerTurn);
 //         computerTurn();
 //     }, 800)
 // }//this is the end of the function
+
+
+
+
+    //i need some kind of code here
+    //that says break code if
+    //at any point the user is wrong
+
+    //initial thought to solve this problem is take the 
+    //if userArry.length code statement away. 
+    // if(userArray.length === computerArray.length){
+        // console.log(userArray);
+        // compareArrays(userArray, computerArray);
+        // compareTwoArrays(userArray, computerArray);
+    // }
