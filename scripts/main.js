@@ -13,61 +13,40 @@ let computerColorChoice;
 let computerArray = []; 
 let userArray = [];
 gameOverText.style.display = 'none';
-let enabled;
+let computersTurn = true;
 
 //Main Functions*********************************************************************
 
-//THINGS I HAVE TO DO STILL
-//2) DISABLE USER TURN DURING COMPUTER TURN
-//3) PROPERLY END GAME..NOT THE HACKY WAY
-//4) ADD HIGH SCORE COUNTRER
-//5) STYLE BETTER
-//6) ADD SOUNDS
-//7) Refactor Code
-
-
-
 
 function computerTurn(){
-    //disable userTurn(); //user can't activate function with click
     startButton.style.display = 'none';
     gameOverText.style.display = 'none';
     computersTurnText.style.display = 'block';
-    console.log(computerArray);
+    
     setTimeout(()=> {
-        enabled = true;
-        if(computerArray.length === 0){
-             allComputerSteps();
-        } else {
             loopThroughSequence(computerArray);
-        }
     }, 1500)
-    enabled = false;
 }
 
 
 function userTurn(e){
-    if (enabled === true){
-        e.preventDefault();
-    } else {
+    if(!computersTurn){
         e.target.classList.add('glow');
         removeGlow(e.target);
         userArray.push(e.target);
-        console.log(userArray);
         compareTwoArrays(userArray, computerArray);
-
+        //this lets computer know user is done with their turn
         if(userArray.length === computerArray.length){
             userArray = [];
             switchTurnDisplay();
+            computersTurn = true;
             computerTurn();
         }
     }
 
 }
-    
 
 //Helper Functions*****************************************************************************
-
 
 //this function picks a radom color and 'lights' it up
 function boxGlow(){
@@ -102,9 +81,9 @@ function switchTurnDisplay(){
 function allComputerSteps(){
     boxGlow();
     addTocomputerArray();
-    console.log(computerArray)
     setTimeout(()=>{
         switchTurnDisplay();
+        computersTurn = false;
     },1000)
 }
 
@@ -128,10 +107,7 @@ function loopThroughSequence(arr) {
 function compareTwoArrays(arr1, arr2){
 
     for(i = 0; i < arr1.length; i++){
-        if(arr1[i] === arr2[i]){
-            console.log('cool');
-        }else{
-            console.log('Game Over');
+        if (arr1[i] !== arr2[i]){
             yourTurnText.style.display = 'none';
             gameOverText.style.display = 'block';
             startButton.style.display = 'block';
@@ -144,8 +120,6 @@ function compareTwoArrays(arr1, arr2){
     }
 }
 
-//first of all..this is super hacky
-//second of all..it only says game over after your turn is done.
 function stopGame(){
  break;
 }
@@ -163,6 +137,12 @@ startButton.addEventListener('click', computerTurn);
 
 
 
+//THINGS I HAVE TO DO STILL
+//3) PROPERLY END GAME..NOT THE HACKY WAY
+//4) ADD HIGH SCORE COUNTRER
+//5) STYLE BETTER
+//6) ADD SOUNDS
+//7) Refactor Code
 
 
 
