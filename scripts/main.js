@@ -14,6 +14,7 @@ let computerArray = [];
 let userArray = [];
 gameOverText.style.display = 'none';
 let computersTurn = true;
+let gameOver = false;
 
 //Main Functions*********************************************************************
 
@@ -36,15 +37,18 @@ function userTurn(e){
         userArray.push(e.target);
         compareTwoArrays(userArray, computerArray);
         //this lets computer know user is done with their turn
-        if(userArray.length === computerArray.length){
-            userArray = [];
-            switchTurnDisplay();
-            computersTurn = true;
-            computerTurn();
+        if(!gameOver){
+            if(userArray.length === computerArray.length){
+                userArray = [];
+                switchTurnDisplay();
+                computersTurn = true;
+                computerTurn();
+            }
         }
     }
-
 }
+
+
 
 //Helper Functions*****************************************************************************
 
@@ -108,20 +112,23 @@ function compareTwoArrays(arr1, arr2){
 
     for(i = 0; i < arr1.length; i++){
         if (arr1[i] !== arr2[i]){
-            yourTurnText.style.display = 'none';
-            gameOverText.style.display = 'block';
-            startButton.style.display = 'block';
-            computerArray = [];
-            userArray = [];
-            startButton.innerHTML = '';
-            startButton.innerHTML = 'Try Again?';
             stopGame();
         }
     }
 }
 
 function stopGame(){
- break;
+    computersTurn = true;
+    gameOver = true;
+    yourTurnText.style.display = 'none';
+    gameOverText.style.display = 'block';
+    startButton.style.display = 'block';
+    startButton.innerHTML = '';
+    startButton.innerHTML = 'Try Again?';
+    computerArray = [];
+    userArray = [];
+    console.log(computersTurn);
+    console.log(gameOver);
 }
 
 
