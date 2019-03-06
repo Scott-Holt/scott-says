@@ -12,14 +12,15 @@ const boxArray = [green,yellow,red,blue];
 let computerColorChoice;
 let computerArray = []; 
 let userArray = [];
-gameOverText.style.display = 'none';
 let computersTurn = true;
 let gameOver = false;
+gameOverText.style.display = 'none';
 
 //Main Functions*********************************************************************
 
 
 function computerTurn(){
+    gameOver = false;
     startButton.style.display = 'none';
     gameOverText.style.display = 'none';
     computersTurnText.style.display = 'block';
@@ -35,6 +36,7 @@ function userTurn(e){
         e.target.classList.add('glow');
         removeGlow(e.target);
         userArray.push(e.target);
+        console.log(userArray);
         compareTwoArrays(userArray, computerArray);
         //this lets computer know user is done with their turn
         if(!gameOver){
@@ -85,6 +87,7 @@ function switchTurnDisplay(){
 function allComputerSteps(){
     boxGlow();
     addTocomputerArray();
+    console.log(computerArray);
     setTimeout(()=>{
         switchTurnDisplay();
         computersTurn = false;
@@ -113,7 +116,7 @@ function compareTwoArrays(arr1, arr2){
     for(i = 0; i < arr1.length; i++){
         if (arr1[i] !== arr2[i]){
             stopGame();
-        }
+        }//else continue with steps in userTurn();
     }
 }
 
@@ -126,9 +129,10 @@ function stopGame(){
     startButton.innerHTML = '';
     startButton.innerHTML = 'Try Again?';
     computerArray = [];
+    console.log(computerArray);
     userArray = [];
-    console.log(computersTurn);
-    console.log(gameOver);
+    console.log(userArray);
+
 }
 
 
