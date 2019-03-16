@@ -3,7 +3,8 @@
   margin: 0px;
   box-sizing: border-box; }
 
-body, html {
+body,
+html {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +25,7 @@ body, html {
       width: 100px;
       border: 1px solid black;
       margin: 10px;
-      transition: ease-in-out .2s; }
+      transition: ease-in-out 0.2s; }
       .game .row .box:hover {
         cursor: pointer; }
 
@@ -58,6 +59,8 @@ body, html {
   .turn .computers-turn {
     display: none; }
   .turn .your-turn {
+    display: none; }
+  .turn .game-over {
     display: none; }
 
 /*# sourceMappingURL=main.css.map */

@@ -14,7 +14,13 @@ let computerArray = [];
 let userArray = [];
 let computersTurn = true;
 let gameOver = false;
-gameOverText.style.display = "none";
+let greenSound = document.querySelector(".root-note");
+let yellowSound = document.querySelector(".third-note");
+let redSound = document.querySelector(".fourth-note");
+let blueSound = document.querySelector(".fifth-note");
+let currentTurn = 0;
+let highScore = 0;
+let highScoreText = document.querySelector(".score-text");
 
 //Main Functions*********************************************************************
 
@@ -33,6 +39,7 @@ function userTurn(e) {
   if (!computersTurn) {
     e.target.classList.add("glow");
     removeGlow(e.target);
+    makeNoise(e.target);
     userArray.push(e.target);
     console.log(userArray);
     compareTwoArrays(userArray, computerArray);
@@ -43,6 +50,7 @@ function userTurn(e) {
         switchTurnDisplay();
         computersTurn = true;
         computerTurn();
+        updateScore();
       }
     }
   }
@@ -54,6 +62,7 @@ function userTurn(e) {
 function boxGlow() {
   computerColorChoice = Math.floor(Math.random() * 4);
   boxArray[computerColorChoice].classList.add("glow");
+  makeNoise(boxArray[computerColorChoice]);
   removeGlow(boxArray[computerColorChoice]);
 }
 
@@ -82,7 +91,7 @@ function switchTurnDisplay() {
 function allComputerSteps() {
   boxGlow();
   addTocomputerArray();
-  console.log(computerArray);
+  // console.log(computerArray);
   setTimeout(() => {
     switchTurnDisplay();
     computersTurn = false;
@@ -96,6 +105,7 @@ function loopThroughSequence(arr) {
     } else {
       arr[index].classList.add("glow");
       removeGlow(arr[index]);
+      makeNoise(arr[index]);
       setTimeout(function() {
         //this calls the iterator function to run ever 1000ms.
         iterator(++index);
@@ -114,6 +124,32 @@ function compareTwoArrays(arr1, arr2) {
   }
 }
 
+function makeNoise(box) {
+  if (box === green) {
+    greenSound.currentTime = 0;
+    greenSound.play();
+  } else if (box === yellow) {
+    yellowSound.currentTime = 0;
+    yellowSound.play();
+  } else if (box === blue) {
+    blueSound.currentTime = 0;
+    blueSound.play();
+  } else {
+    redSound.currentTime = 0;
+    redSound.play();
+  }
+}
+
+function updateScore() {
+  ++currentTurn;
+  if (currentTurn > highScore) {
+    highScore = currentTurn;
+    highScoreText.innerHTML = highScore;
+  } else {
+    console.log("current turn is not higher than high score");
+  }
+}
+
 function stopGame() {
   computersTurn = true;
   gameOver = true;
@@ -123,6 +159,7 @@ function stopGame() {
   startButton.innerHTML = "";
   startButton.innerHTML = "Try Again?";
   computerArray = [];
+  currentTurn = 0;
   console.log(computerArray);
   userArray = [];
   console.log(userArray);
@@ -133,10 +170,8 @@ box.forEach(box => box.addEventListener("click", userTurn));
 startButton.addEventListener("click", computerTurn);
 
 //THINGS I HAVE TO DO STILL
-//3) PROPERLY END GAME..NOT THE HACKY WAY
-//4) ADD HIGH SCORE COUNTRER
+//4)BACKEND SCORE COUNTER
 //5) STYLE BETTER
-//6) ADD SOUNDS
 //7) Refactor Code
 
 // function compareArrays(arr1, arr2){
