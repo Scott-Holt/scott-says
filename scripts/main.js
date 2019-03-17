@@ -18,6 +18,10 @@ let greenSound = document.querySelector(".root-note");
 let yellowSound = document.querySelector(".third-note");
 let redSound = document.querySelector(".fourth-note");
 let blueSound = document.querySelector(".fifth-note");
+let currentTurn = 0;
+let highScore = 0;
+let highScoreText = document.querySelector(".score-text");
+
 
 //Main Functions*********************************************************************
 
@@ -47,6 +51,7 @@ function userTurn(e) {
         switchTurnDisplay();
         computersTurn = true;
         computerTurn();
+        updateScore();
       }
     }
   }
@@ -136,6 +141,16 @@ function makeNoise(box) {
   }
 }
 
+function updateScore() {
+  ++currentTurn;
+  if (currentTurn > highScore) {
+    highScore = currentTurn;
+    highScoreText.innerHTML = highScore;
+  } else {
+    console.log("current turn is not higher than high score");
+  }
+}
+
 function stopGame() {
   computersTurn = true;
   gameOver = true;
@@ -145,19 +160,23 @@ function stopGame() {
   startButton.innerHTML = "";
   startButton.innerHTML = "Try Again?";
   computerArray = [];
+  currentTurn = 0;
   console.log(computerArray);
   userArray = [];
   console.log(userArray);
 }
+
+
 
 //Event Listeners*****************************************************************************************
 box.forEach(box => box.addEventListener("click", userTurn));
 startButton.addEventListener("click", computerTurn);
 
 //THINGS I HAVE TO DO STILL
+//4)BACKEND SCORE COUNTER
 //4) ADD HIGH SCORE COUNTRER
+
 //5) STYLE BETTER
-//6) ADD SOUNDS
 //7) Refactor Code
 
 // function compareArrays(arr1, arr2){
