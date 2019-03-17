@@ -1,3 +1,10 @@
+//Variables
+$yellow-color: #edef1ad4;
+$main-font: "Open Sans", sans-serif;
+$text-shadow: 3px 2px 6px #6b7c34;
+$alien-green: #01ff12;
+////////////////////////
+
 * {
   padding: 0px;
   margin: 0px;
@@ -10,14 +17,24 @@ html {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 1px solid red;
   height: 100%;
   width: 100%;
+  min-width: 264px;
+  background-image: url("../images/space.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: $main-font;
+  text-transform: uppercase;
+}
+
+h1 {
+  color: $yellow-color;
+  text-shadow: $text-shadow;
 }
 
 .game {
   margin-top: 20px;
-  border: 1px solid black;
 
   .row {
     display: flex;
@@ -27,9 +44,9 @@ html {
     .box {
       height: 100px;
       width: 100px;
-      border: 1px solid black;
-      margin: 10px;
+      margin: 3px;
       transition: ease-in-out 0.2s;
+      // border: 3px solid black;
 
       &:hover {
         cursor: pointer;
@@ -39,24 +56,33 @@ html {
 }
 
 .green {
-  background-color: green;
+  background-color: #008000db;
+  border-top-left-radius: 46px;
+  border-bottom-right-radius: 15px;
 }
 
 .yellow {
-  background-color: yellow;
+  background-color: #ffff00c4;
+  border-top-right-radius: 46px;
+  border-bottom-left-radius: 15px;
 }
 
 .red {
-  background-color: red;
+  background-color: #ff0000d1;
+  border-bottom-left-radius: 46px;
+  border-top-right-radius: 15px;
 }
 
 .blue {
-  background-color: blue;
+  background-color: #0000ffe0;
+  border-bottom-right-radius: 46px;
+  border-top-left-radius: 15px;
 }
 
 .glow {
-  box-shadow: 0 0 13px black;
-  transform: scale(1.01);
+  // box-shadow: 0 0 13px black;
+  box-shadow: inset 0 0 3px 4px black;
+  // transform: scale(1.01);
 }
 
 .start-game {
@@ -64,10 +90,14 @@ html {
   border: 1px solid black;
   padding: 5px 10px;
   border-radius: 10px;
-  background-color: #f57a7a;
+  background-color: #3a353cb8;
+  color: $alien-green;
+  font-size: 1.2em;
 
   &:hover {
     cursor: pointer;
+    box-shadow: 0px 0px 16px 0px #5c7274;
+    transition: ease-out 0.3s;
   }
 }
 
@@ -81,8 +111,23 @@ html {
   .your-turn {
     display: none;
   }
+}
 
-  .game-over {
-    display: none;
-  }
+.game-over {
+  display: none;
+  color: red;
+  font-size: 2em;
+  text-shadow: 4px 2px 9px #d01414;
+}
+
+.score,
+.your-turn,
+.computers-turn {
+  font-size: 1.1em;
+  color: #fffffffc;
+  text-shadow: $text-shadow;
+}
+
+.score {
+  margin-top: 15px;
 }

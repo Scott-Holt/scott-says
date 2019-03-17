@@ -1,5 +1,6 @@
 //Variables*************************************************************************
 const box = document.querySelectorAll(".box");
+const title = document.querySelector(".title");
 const startButton = document.querySelector(".start-game");
 const computersTurnText = document.querySelector(".computers-turn");
 const yourTurnText = document.querySelector(".your-turn");
@@ -27,6 +28,7 @@ let highScoreText = document.querySelector(".score-text");
 
 function computerTurn() {
   gameOver = false;
+  title.style.display = "block";
   startButton.style.display = "none";
   gameOverText.style.display = "none";
   computersTurnText.style.display = "block";
@@ -154,6 +156,7 @@ function updateScore() {
 function stopGame() {
   computersTurn = true;
   gameOver = true;
+  title.style.display = "none";
   yourTurnText.style.display = "none";
   gameOverText.style.display = "block";
   startButton.style.display = "block";
@@ -174,34 +177,9 @@ startButton.addEventListener("click", computerTurn);
 
 //THINGS I HAVE TO DO STILL
 //4)BACKEND SCORE COUNTER
+
 //4) ADD HIGH SCORE COUNTRER
 
 //5) STYLE BETTER
+
 //7) Refactor Code
-
-// function compareArrays(arr1, arr2){
-//     arr1.forEach(e1 => arr2.forEach(e2 => {
-//         if(e1 === e2){
-//             console.log('good');
-//         } else {
-//             console.log('bad');
-//         }
-//     }));//this is the end of the forEach block
-//     userArray = [];
-//     switchTurnDisplay();
-//     setTimeout(()=>{
-//         computerTurn();
-//     }, 800)
-// }//this is the end of the function
-
-//i need some kind of code here
-//that says break code if
-//at any point the user is wrong
-
-//initial thought to solve this problem is take the
-//if userArry.length code statement away.
-// if(userArray.length === computerArray.length){
-// console.log(userArray);
-// compareArrays(userArray, computerArray);
-// compareTwoArrays(userArray, computerArray);
-// }
