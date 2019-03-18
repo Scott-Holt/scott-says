@@ -1,16 +1,15 @@
 //Variables*************************************************************************
-const box = document.querySelectorAll(".box");
-const title = document.querySelector(".title");
-const startButton = document.querySelector(".start-game");
-const computersTurnText = document.querySelector(".computers-turn");
-const yourTurnText = document.querySelector(".your-turn");
-const gameOverText = document.querySelector(".game-over");
-const green = document.querySelector(".green");
-const yellow = document.querySelector(".yellow");
-const red = document.querySelector(".red");
-const blue = document.querySelector(".blue");
-const boxArray = [green, yellow, red, blue];
-let computerColorChoice;
+let box = document.querySelectorAll(".box");
+let title = document.querySelector(".title");
+let startButton = document.querySelector(".start-game");
+let computersTurnText = document.querySelector(".computers-turn");
+let yourTurnText = document.querySelector(".your-turn");
+let gameOverText = document.querySelector(".game-over");
+let green = document.querySelector(".green");
+let yellow = document.querySelector(".yellow");
+let red = document.querySelector(".red");
+let blue = document.querySelector(".blue");
+let colorArray = [green, yellow, red, blue];
 let computerArray = [];
 let userArray = [];
 let computersTurn = true;
@@ -43,40 +42,53 @@ function userTurn(e) {
     removeGlow(e.target);
     makeNoise(e.target);
     userArray.push(e.target);
-    console.log(userArray);
-    compareTwoArrays(userArray, computerArray);
-    //this lets computer know user is done with their turn
-    if (!gameOver) {
-      if (userArray.length === computerArray.length) {
-        userArray = [];
-        switchTurnDisplay();
-        computersTurn = true;
-        computerTurn();
-        updateScore();
-      }
+    compareTwoArrays(userArray, computerArray); // if arrays are different, game over. The rest of this code doesnt execute
+
+    //the following code lets computer know user is done with their turn
+    if (!gameOver && userArray.length === computerArray.length) {
+      userArray = [];
+      switchTurnDisplay();
+      computersTurn = true;
+      computerTurn();
+      updateScore();
     }
   }
 }
 
 //Helper Functions*****************************************************************************
 
-//this function picks a radom color and 'lights' it up
-function boxGlow() {
-  computerColorChoice = Math.floor(Math.random() * 4);
-  boxArray[computerColorChoice].classList.add("glow");
-  makeNoise(boxArray[computerColorChoice]);
-  removeGlow(boxArray[computerColorChoice]);
+function loopThroughSequence(arr) {
+  function iterator(index) {
+    if (index >= arr.length) {
+      randomColor();
+      setTimeout(() => {
+        switchTurnDisplay();
+        computersTurn = false;
+      }, 1000);
+    } else {
+      arr[index].classList.add("glow");
+      removeGlow(arr[index]);
+      makeNoise(arr[index]);
+      setTimeout(function() {
+        iterator(++index);
+      }, 1000);
+    }
+  }
+  iterator(0);
 }
 
-//this removes the glow of color
+function randomColor() {
+  let computerColorChoice = Math.floor(Math.random() * 4);
+  colorArray[computerColorChoice].classList.add("glow");
+  computerArray.push(colorArray[computerColorChoice]);
+  makeNoise(colorArray[computerColorChoice]);
+  removeGlow(colorArray[computerColorChoice]);
+}
+
 function removeGlow(box) {
   setTimeout(() => {
     box.classList.remove("glow");
   }, 300);
-}
-
-function addTocomputerArray() {
-  computerArray.push(boxArray[computerColorChoice]);
 }
 
 function switchTurnDisplay() {
@@ -89,46 +101,17 @@ function switchTurnDisplay() {
   }
 }
 
-//reusable function. Goes through all computer automated steps
-function allComputerSteps() {
-  boxGlow();
-  addTocomputerArray();
-  // console.log(computerArray);
-  setTimeout(() => {
-    switchTurnDisplay();
-    computersTurn = false;
-  }, 1000);
-}
-
-function loopThroughSequence(arr) {
-  function iterator(index) {
-    if (index >= arr.length) {
-      allComputerSteps();
-    } else {
-      arr[index].classList.add("glow");
-      removeGlow(arr[index]);
-      makeNoise(arr[index]);
-      setTimeout(function() {
-        //this calls the iterator function to run ever 1000ms.
-        iterator(++index);
-      }, 1000);
-    }
-  }
-
-  iterator(0);
-}
-
 function compareTwoArrays(arr1, arr2) {
   for (i = 0; i < arr1.length; i++) {
     if (arr1[i] !== arr2[i]) {
       stopGame();
-    } //else continue with steps in userTurn();
+    }
   }
 }
 
 function makeNoise(box) {
   if (box === green) {
-    greenSound.currentTime = 0;
+    greenSound.currentTime = 0; //resets audio clip to beginning everytime a user clicks a color
     greenSound.play();
   } else if (box === yellow) {
     yellowSound.currentTime = 0;
@@ -147,36 +130,22 @@ function updateScore() {
   if (currentTurn > highScore) {
     highScore = currentTurn;
     highScoreText.innerHTML = highScore;
-  } else {
-    console.log("current turn is not higher than high score");
   }
 }
 
 function stopGame() {
-  computersTurn = true;
+  computersTurn = true; //makes it so user can't click any more colors
   gameOver = true;
   title.style.display = "none";
   yourTurnText.style.display = "none";
   gameOverText.style.display = "block";
   startButton.style.display = "block";
-  startButton.innerHTML = "";
   startButton.innerHTML = "Try Again?";
   computerArray = [];
   currentTurn = 0;
-  console.log(computerArray);
   userArray = [];
-  console.log(userArray);
 }
 
 //Event Listeners*****************************************************************************************
 box.forEach(box => box.addEventListener("click", userTurn));
 startButton.addEventListener("click", computerTurn);
-
-//THINGS I HAVE TO DO STILL
-//4)BACKEND SCORE COUNTER
-//make responsive in SASS
-//4) ADD HIGH SCORE COUNTRER
-
-//5) STYLE BETTER
-
-//7) Refactor Code
