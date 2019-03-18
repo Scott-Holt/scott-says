@@ -23,7 +23,6 @@ let currentTurn = 0;
 let highScore = 0;
 let highScoreText = document.querySelector(".score-text");
 
-
 //Main Functions*********************************************************************
 
 function computerTurn() {
@@ -169,15 +168,13 @@ function stopGame() {
   console.log(userArray);
 }
 
-
-
 //Event Listeners*****************************************************************************************
 box.forEach(box => box.addEventListener("click", userTurn));
 startButton.addEventListener("click", computerTurn);
 
 //THINGS I HAVE TO DO STILL
 //4)BACKEND SCORE COUNTER
-
+//make responsive in SASS
 //4) ADD HIGH SCORE COUNTRER
 
 //5) STYLE BETTER

@@ -3,6 +3,13 @@ $yellow-color: #edef1ad4;
 $main-font: "Open Sans", sans-serif;
 $text-shadow: 3px 2px 6px #6b7c34;
 $alien-green: #01ff12;
+
+$ipad: 768px;
+@mixin ipadView {
+  @media (min-width: #{$ipad}) {
+    @content;
+  }
+}
 ////////////////////////
 
 * {
@@ -26,6 +33,10 @@ html {
   background-size: cover;
   font-family: $main-font;
   text-transform: uppercase;
+
+  @include ipadView {
+    font-size: 1.1em;
+  }
 }
 
 h1 {
@@ -46,10 +57,15 @@ h1 {
       width: 100px;
       margin: 3px;
       transition: ease-in-out 0.2s;
-      // border: 3px solid black;
 
       &:hover {
         cursor: pointer;
+      }
+
+      @include ipadView {
+        height: 130px;
+        width: 130px;
+        margin: 4px;
       }
     }
   }

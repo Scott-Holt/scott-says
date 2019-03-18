@@ -18,6 +18,10 @@ html {
   background-size: cover;
   font-family: "Open Sans", sans-serif;
   text-transform: uppercase; }
+  @media (min-width: 768px) {
+    body,
+    html {
+      font-size: 1.1em; } }
 
 h1 {
   color: #edef1ad4;
@@ -36,6 +40,11 @@ h1 {
       transition: ease-in-out 0.2s; }
       .game .row .box:hover {
         cursor: pointer; }
+      @media (min-width: 768px) {
+        .game .row .box {
+          height: 130px;
+          width: 130px;
+          margin: 4px; } }
 
 .green {
   background-color: #008000db;
