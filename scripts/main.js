@@ -1,7 +1,7 @@
 //Variables*************************************************************************
-let box = document.querySelectorAll(".box");
-let title = document.querySelector(".title");
+let quadrant = document.querySelectorAll(".quadrant");
 let startButton = document.querySelector(".start-game");
+let scottSaysText = document.querySelector(".scott-says-text");
 let computersTurnText = document.querySelector(".computers-turn");
 let yourTurnText = document.querySelector(".your-turn");
 let gameOverText = document.querySelector(".game-over");
@@ -12,8 +12,8 @@ let blue = document.querySelector(".blue");
 let colorArray = [green, yellow, red, blue];
 let computerArray = [];
 let userArray = [];
-let computersTurn = true;
-let gameOver = false;
+let computersTurn = true; // makes computersTurn true by default
+let gameOver = false; // makes gameOver false by default
 let greenSound = document.querySelector(".root-note");
 let yellowSound = document.querySelector(".third-note");
 let redSound = document.querySelector(".fourth-note");
@@ -26,20 +26,20 @@ let highScoreText = document.querySelector(".score-text");
 
 function computerTurn() {
   gameOver = false;
-  title.style.display = "block";
+  scottSaysText.style.display = "block";
   startButton.style.display = "none";
   gameOverText.style.display = "none";
   computersTurnText.style.display = "block";
 
   setTimeout(() => {
-    loopThroughSequence(computerArray);
+    loopThroughComputerArray(computerArray);
   }, 1500);
 }
 
 function userTurn(e) {
   if (!computersTurn) {
-    e.target.classList.add("glow");
-    removeGlow(e.target);
+    e.target.classList.add("click-animation");
+    removeClickAnimation(e.target);
     makeNoise(e.target);
     userArray.push(e.target);
     compareTwoArrays(userArray, computerArray); // if arrays are different, game over. The rest of this code doesnt execute
@@ -55,9 +55,11 @@ function userTurn(e) {
   }
 }
 
-//Helper Functions*****************************************************************************
+//HELPER FUNCTIONS***************************************************************************************************************************
 
-function loopThroughSequence(arr) {
+//if computerArray length is >= index, then computer chooses new random color and pushes it to computerArray.
+//Otherwise, go through computerArray and add/remove animation/play audio
+function loopThroughComputerArray(arr) {
   function iterator(index) {
     if (index >= arr.length) {
       randomColor();
@@ -66,8 +68,8 @@ function loopThroughSequence(arr) {
         computersTurn = false;
       }, 1000);
     } else {
-      arr[index].classList.add("glow");
-      removeGlow(arr[index]);
+      arr[index].classList.add("click-animation");
+      removeClickAnimation(arr[index]);
       makeNoise(arr[index]);
       setTimeout(function() {
         iterator(++index);
@@ -79,15 +81,15 @@ function loopThroughSequence(arr) {
 
 function randomColor() {
   let computerColorChoice = Math.floor(Math.random() * 4);
-  colorArray[computerColorChoice].classList.add("glow");
+  colorArray[computerColorChoice].classList.add("click-animation");
   computerArray.push(colorArray[computerColorChoice]);
   makeNoise(colorArray[computerColorChoice]);
-  removeGlow(colorArray[computerColorChoice]);
+  removeClickAnimation(colorArray[computerColorChoice]);
 }
 
-function removeGlow(box) {
+function removeClickAnimation(quadrant) {
   setTimeout(() => {
-    box.classList.remove("glow");
+    quadrant.classList.remove("click-animation");
   }, 300);
 }
 
@@ -109,14 +111,14 @@ function compareTwoArrays(arr1, arr2) {
   }
 }
 
-function makeNoise(box) {
-  if (box === green) {
+function makeNoise(quadrant) {
+  if (quadrant === green) {
     greenSound.currentTime = 0; //resets audio clip to beginning everytime a user clicks a color
     greenSound.play();
-  } else if (box === yellow) {
+  } else if (quadrant === yellow) {
     yellowSound.currentTime = 0;
     yellowSound.play();
-  } else if (box === blue) {
+  } else if (quadrant === blue) {
     blueSound.currentTime = 0;
     blueSound.play();
   } else {
@@ -136,7 +138,7 @@ function updateScore() {
 function stopGame() {
   computersTurn = true; //makes it so user can't click any more colors
   gameOver = true;
-  title.style.display = "none";
+  scottSaysText.style.display = "none";
   yourTurnText.style.display = "none";
   gameOverText.style.display = "block";
   startButton.style.display = "block";
@@ -147,5 +149,5 @@ function stopGame() {
 }
 
 //Event Listeners*****************************************************************************************
-box.forEach(box => box.addEventListener("click", userTurn));
+quadrant.forEach(quadrant => quadrant.addEventListener("click", userTurn));
 startButton.addEventListener("click", computerTurn);

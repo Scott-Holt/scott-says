@@ -33,15 +33,15 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: center; }
-    .game .row .box {
+    .game .row .quadrant {
       height: 100px;
       width: 100px;
       margin: 3px;
       transition: ease-in-out 0.2s; }
-      .game .row .box:hover {
+      .game .row .quadrant:hover {
         cursor: pointer; }
       @media (min-width: 768px) {
-        .game .row .box {
+        .game .row .quadrant {
           height: 130px;
           width: 130px;
           margin: 4px; } }
@@ -66,7 +66,7 @@ h1 {
   border-bottom-right-radius: 46px;
   border-top-left-radius: 15px; }
 
-.glow {
+.click-animation {
   box-shadow: inset 0 0 3px 4px black; }
 
 .start-game {
