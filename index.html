@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Scott Says</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="styles/main.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    </head>
-    
-    <body>
-        <h1 class="scott-says-text">Scott Says...</h1>
-        <div class="game-over">Game Over!</div>
-        <span class="start-game">Start Game</span>
-        <div class="turn">
-            <div class ="computers-turn">Computers Turn...</div>
-            <div class="your-turn">Your Turn</div>
-        </div>
-        <div class="game">
-            <div class="row row1">
-                <div class="quadrant green"></div>
-                <div class="quadrant yellow"></div>
-            </div>
-            <div class="row row2">
-                <div class="quadrant red"></div>
-                <div class="quadrant blue"></div>  
-            </div>   
-        </div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Scott Says</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
 
-        <audio class="root-note" src="sounds/root_01.R.wav"></audio>
-        <audio class="third-note" src="sounds/third_01.R.wav"></audio>
-        <audio class="fourth-note" src="sounds/fourth_01.L.wav"></audio>
-        <audio class="fifth-note" src="sounds/fifth_01.L.wav"></audio>
-        
-        <script src="scripts/main.js" async defer></script>
-        <script src="scripts/test.js" async defer></script>
-        <!-- <script src="scripts/deletedCode.js" async defer></script> -->
-        <div class="score">
-            High Score: <span class="score-text"></span>
+<body>
+    <h1 class="scott-says-text">Scott Says...</h1>
+    <div class="game-over">Game Over!</div>
+    <span class="start-game">Start Game</span>
+    <div class="turn">
+        <div class="computers-turn">Computers Turn...</div>
+        <div class="your-turn">Your Turn</div>
+    </div>
+    <div class="game">
+        <div class="row row1">
+            <div class="quadrant green"></div>
+            <div class="quadrant yellow"></div>
         </div>
-    </body>
+        <div class="row row2">
+            <div class="quadrant red"></div>
+            <div class="quadrant blue"></div>
+        </div>
+    </div>
+
+    <audio class="root-note" src="sounds/root_01.R.wav"></audio>
+    <audio class="third-note" src="sounds/third_01.R.wav"></audio>
+    <audio class="fourth-note" src="sounds/fourth_01.L.wav"></audio>
+    <audio class="fifth-note" src="sounds/fifth_01.L.wav"></audio>
+
+    <div class="score">
+        High Score: <span class="score-text"></span>
+    </div>
+
+    <script src="scripts/main.js" async defer></script>
+</body>
+
 </html>
