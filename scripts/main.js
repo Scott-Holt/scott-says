@@ -71,7 +71,7 @@ function loopThroughComputerArray(arr) {
       arr[index].classList.add("click-animation");
       removeClickAnimation(arr[index]);
       makeNoise(arr[index]);
-      setTimeout(function() {
+      setTimeout(function () {
         iterator(++index);
       }, 1000);
     }
