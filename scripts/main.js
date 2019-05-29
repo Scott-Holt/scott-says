@@ -71,7 +71,7 @@ function loopThroughComputerArray(arr) {
       arr[index].classList.add("click-animation");
       removeClickAnimation(arr[index]);
       makeNoise(arr[index]);
-      setTimeout(function() {
+      setTimeout(function () {
         iterator(++index);
       }, 1000);
     }
@@ -111,21 +111,24 @@ function compareTwoArrays(arr1, arr2) {
   }
 }
 
-function makeNoise(quadrant) {
-  if (quadrant === green) {
-    greenSound.currentTime = 0; //resets audio clip to beginning everytime a user clicks a color
+
+function makeNoise(e) {
+  if (e.target === green) {
     greenSound.play();
-  } else if (quadrant === yellow) {
-    yellowSound.currentTime = 0;
+    console.log(greenSound);
+    greenSound.currentTime = 0; //rewinds audio to beginning of its sound;
+  } else if (e.target === yellow) {
     yellowSound.play();
-  } else if (quadrant === blue) {
-    blueSound.currentTime = 0;
-    blueSound.play();
-  } else {
-    redSound.currentTime = 0;
+    yellowSound.currentTime = 0;
+  } else if (e.target === red) {
     redSound.play();
+    redSound.currentTime = 0;
+  } else {
+    blueSound.play();
+    blueSound.currentTime = 0;
   }
 }
+
 
 function updateScore() {
   ++currentTurn;
